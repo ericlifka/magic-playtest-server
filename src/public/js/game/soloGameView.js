@@ -6,6 +6,7 @@
     SoloGameViewConstructor.prototype.render = function () {
         this._soloGameController = SoloGameController.createController();
         this._soloGameController.setDeck(urlParts.create()['deck']);
+        this._soloGameController.shuffleDeck();
         this._board = this._createBoard();
         this._setupBoardPositions(this._board);
         this._cardImages = this._createCardImageResources(this._soloGameController.getDeck());
@@ -106,7 +107,6 @@
 
     SoloGameViewConstructor.prototype._createHandBox = function (board) {
         var box = document.createElement('div');
-        box.innerHTML = "HAND";
         box.style.border = "5px solid grey";
         box.style.font = "48px Helvetica";
         box.style.color = "grey";
@@ -115,6 +115,13 @@
         box.style.height = "530px";
         box.style.top = "290px";
         box.style.left = "1020px";
+
+        var textBox = document.createElement('div');
+        textBox.innerHTML = "HAND";
+        textBox.style.position = "absolute";
+        textBox.style.zIndex = "-1";
+
+        box.appendChild(textBox);
         board.appendChild(box);
         board.handBox = box;
     };
@@ -131,9 +138,7 @@
     SoloGameViewConstructor.prototype._createCardImageResources = function (deck) {
         var cardImages = {};
         _.each(deck.getCardList(), function (cardName) {
-            var image = document.createElement('img');
-            image.src = "/images/cards/" + cardName + ".jpeg";
-            cardImages[cardName] = image;
+            cardImages[cardName] = "/images/cards/" + cardName + ".jpeg";
         });
         return cardImages;
     };
@@ -145,9 +150,17 @@
     };
 
     SoloGameViewConstructor.prototype._showDeckBack = function (board, cardBack) {
-        cardBack.height = gameConfig.cardHeight;
+        cardBack.height = GameConfig.cardHeight;
         cardBack.style.padding = "2px";
         board.deckBox.appendChild(cardBack);
+        var view = this;
+        cardBack.onclick = function () {
+            var drawnCard = view._soloGameController.drawCard();
+            var cardImage = document.createElement('img');
+            cardImage.src = view._cardImages[drawnCard];
+            cardImage.height = GameConfig.cardHeight;
+            view._board.handBox.appendChild(cardImage);
+        };
     };
 
     var soloGameView = window.SoloGameView = { };

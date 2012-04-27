@@ -10,10 +10,14 @@
     };
 
     DeckConstructor.prototype.getCardList = function () {
-        _.collect(this._cards, function (count, name) {
+        return _.collect(this._cards, function (name, count) {
             return name;
         });
     };
+
+    DeckConstructor.prototype.getDeck = function () {
+        return this._cards;
+    }
 
     Deck.create = function (deckList) {
         var newDeck = new DeckConstructor();

@@ -3,16 +3,16 @@
     var SoloGameControllerConstructor = function () {
     };
 
-    SoloGameControllerConstructor.prototype.getDeck = function (deckName) {
+    SoloGameControllerConstructor.prototype.setDeck = function (deckName) {
         /* make a request to the server to get the saved decklist */
-        return Deck.create({
+        this._deck = Deck.create({
             "Swamp": 24,
             "Relentless Rats": 36
         });
     };
 
-    SoloGameControllerConstructor.prototype.setDeck = function (deck) {
-        this._deck = deck;
+    SoloGameControllerConstructor.prototype.getDeck = function () {
+        return this._deck;
     };
 
     window.SoloGameController = { };

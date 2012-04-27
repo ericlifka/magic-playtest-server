@@ -1,6 +1,6 @@
 (function () {
-    window.gameConfig = { };
+    window.GameConfig = { };
 
-    gameConfig.cardHeight = 200;
+    window.GameConfig.cardHeight = 200;
 
 })();

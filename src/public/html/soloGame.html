@@ -3,8 +3,27 @@
 <html>
 <head>
     <title>Magic Playtest Server - Solo Game</title>
-</head>
-<body>
 
+    <script type='text/javascript' src='/js/Underscore.js' charset="UTF-8"></script>
+    <script type='text/javascript' src='/js/url/urlParts.js' charset="UTF-8"></script>
+
+    <script type='text/javascript' src='/js/game/gameConfig.js' charset="UTF-8"></script>
+    <script type='text/javascript' src='/js/game/Deck.js' charset="UTF-8"></script>
+    <script type='text/javascript' src='/js/game/soloGameController.js' charset="UTF-8"></script>
+    <script type='text/javascript' src='/js/game/SoloGameView.js' charset="UTF-8"></script>
+
+    <script type='text/javascript'>
+
+        window.onload = function () {
+            var soloGameView = SoloGameView.createView();
+            soloGameView.render();
+        };
+
+    </script>
+
+</head>
+
+<body>
 </body>
+
 </html>

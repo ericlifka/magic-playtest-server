@@ -1,11 +1,24 @@
 (function () {
-    window.soloGame = { };
 
-    soloGame.initialize = function (deckList) {
-        this.createImageResources(deckList);
-
+    var SoloGameControllerConstructor = function () {
     };
 
-    soloGame.createImageResources(deckList);
+    SoloGameControllerConstructor.prototype.getDeck = function (deckName) {
+        /* make a request to the server to get the saved decklist */
+        return Deck.create({
+            "Swamp": 24,
+            "Relentless Rats": 36
+        });
+    };
+
+    SoloGameControllerConstructor.prototype.setDeck = function (deck) {
+        this._deck = deck;
+    };
+
+    window.SoloGameController = { };
+
+    window.SoloGameController.createController = function () {
+        return new SoloGameControllerConstructor();
+    };
 
 })();

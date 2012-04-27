@@ -4,15 +4,13 @@
     };
 
     SoloGameViewConstructor.prototype.render = function () {
-        this._deck = this.soloGameController.getDeck(urlParts.create()['deck']);
+        this._soloGameController = SoloGameController.createController();
+        this._soloGameController.setDeck(urlParts.create()['deck']);
         this._board = this._createBoard();
         this._setupBoardPositions(this._board);
-        this._cards = this._createCardImageResources(this._deck);
+        this._cardImages = this._createCardImageResources(this._soloGameController.getDeck());
         this._cardBack = this._createCardBack();
         this._showDeckBack(this._board, this._cardBack);
-
-        this.soloGameController = SoloGameController.createController();
-        this.soloGameController.setDeck(this._deck);
     };
 
     SoloGameViewConstructor.prototype._createBoard = function () {
@@ -157,4 +155,5 @@
     soloGameView.createView = function () {
         return new SoloGameViewConstructor();
     };
+
 })();

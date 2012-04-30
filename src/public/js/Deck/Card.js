@@ -5,20 +5,27 @@
     var CARD_STATE_MOVING = "moving";
     var CARD_STATE_NOT_MOVING = "notmoving";
 
-    var Card = window.Card = function (cardName, parentContainer) {
+    var Card = window.Card = function (cardName, playerHand, parentContainer) {
         this.parentContainer = parentContainer || document.body;
+        this.playerHand = playerHand;
         this.cardDiv = document.createElement('div');
         this.cardImage = document.createElement('img');
 
         this.currentTapState = CARD_ORIENTATION_UNTAPPED;
         this.currentMovementState = CARD_STATE_NOT_MOVING;
-        this.currentPosition = {x:100, y:100};
+        this.currentPosition = {
+            x:100,
+            y:100,
+            xOffset: 0,
+            yOffset: 0
+        };
 
         this.cardImage.src = "http://gatherer.wizards.com/Handlers/Image.ashx?type=card&name=" + cardName;
         this.cardImage.height = CARD_SIZE;
         this.cardDiv.style.position = "absolute";
         this.updateCardPosition(this.currentPosition);
-        this.renderCardPosition();
+//        this.renderCardPosition();
+        this.clearHandPosition();
 
         this.cardDiv.appendChild(this.cardImage);
         this.parentContainer.appendChild(this.cardDiv);
@@ -52,6 +59,9 @@
     Card.prototype.handleOnMouseUpEvent = function (mouseEvent) {
         this.currentMovementState = CARD_STATE_NOT_MOVING;
         this.parentContainer.onmousemove = null;
+        this.currentPosition.xOffset = 0;
+        this.currentPosition.yOffset = 0;
+        this.clearHandPosition();
     };
 
     Card.prototype.handleMouseMoveEvent = function (mouseEvent) {
@@ -94,6 +104,17 @@
     Card.prototype.captureMouseOffsetFromEvent = function (mouseEvent) {
         this.currentPosition.xOffset = mouseEvent.offsetX;
         this.currentPosition.yOffset = mouseEvent.offsetY;
+    };
+
+    Card.prototype.setHandPosition = function (handPosition) {
+        this.positionInHand = handPosition;
+    };
+
+    Card.prototype.clearHandPosition = function () {
+        if (this.positionInHand !== -1) {
+            this.playerHand.removeCardFromHand(this.positionInHand);
+            this.positionInHand = -1;
+        }
     };
 
     var getPositionFromMouseEvent = function (mouseEvent) {

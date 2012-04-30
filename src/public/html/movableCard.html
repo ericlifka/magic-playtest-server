@@ -3,8 +3,13 @@
 <html>
 <head>
     <title></title>
+
+    <script type='text/javascript' src='/js/Underscore.js'></script>
+
     <script type='text/javascript' src='/js/deck/Card.js'></script>
     <script type='text/javascript' src='/js/deck/Library.js'></script>
+    <script type='text/javascript' src='/js/deck/Hand.js'></script>
+
     <script>
         window.onload = function () {
             var container = document.createElement('div');
@@ -12,8 +17,16 @@
             container.style.width = screen.availWidth - 25 + 'px';
             container.style.height = screen.availHeight - 115 + 'px';
             document.body.appendChild(container);
-            new Card("Birds of Paradise", container);
-            new Library({}, container);
+
+//            new Card("Birds of Paradise", container);
+
+            var testDeck = {
+                'Swamp': 24,
+                'Relentless Rats': 36
+            };
+            var hand = new Hand();
+            window.currentLibrary = new Library(testDeck, hand, container);
+            window.currentHand = hand;
         };
     </script>
 </head>

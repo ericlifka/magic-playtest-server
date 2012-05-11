@@ -1,11 +1,12 @@
 (function () {
-    var LIBRARY_SIZE = 125;
-    var LIBRARY_POSITION_X = 100;
-    var LIBRARY_POSITION_Y = 300;
+    var LIBRARY_SIZE = 200;
+    var LIBRARY_POSITION_X = 10;
+    var LIBRARY_POSITION_Y = 450;
 
-    var Library = window.Library = function (deckDescription, playerHand, parentContainer) {
+    var Library = window.Library = function (deckDescription, playerHand, cardViewer, parentContainer) {
         this.parentContainer = parentContainer;
         this.deckDescription = deckDescription;
+        this.cardViewer = cardViewer;
         this.deckList = [];
         this.deckDiv = document.createElement('div');
         this.deckImage = document.createElement('img');
@@ -29,7 +30,7 @@
     };
 
     Library.prototype.handleClickEvent = function (clickEvent) {
-        var card = new Card(this.removeTopCard(), this.playerHand, this.parentContainer);
+        var card = new Card(this.removeTopCard(), this.playerHand, this.cardViewer, this.parentContainer);
         this.playerHand.addCardToHand(card);
     };
 

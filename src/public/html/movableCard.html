@@ -9,6 +9,7 @@
     <script type='text/javascript' src='/js/deck/Card.js'></script>
     <script type='text/javascript' src='/js/deck/Library.js'></script>
     <script type='text/javascript' src='/js/deck/Hand.js'></script>
+    <script type='text/javascript' src='/js/deck/LargeCardViewer.js'></script>
 
     <script>
         window.onload = function () {
@@ -18,15 +19,136 @@
             container.style.height = screen.availHeight - 115 + 'px';
             document.body.appendChild(container);
 
-//            new Card("Birds of Paradise", container);
 
             var testDeck = {
-                'Swamp': 24,
-                'Relentless Rats': 36
+                // Lands x24
+                "Forest":7,
+                "Plains":5,
+                "Razorverge Thicket":4,
+                "Shimmering Grotto":4,
+                "Evolving Wilds":4,
+                // 1 x9
+                "Birds of Paradise":4,
+                243212:4, // "Avacyn's Pilgrim"
+                "Llanowar Elves":1,
+                // 2 x4
+                "Rampant Growth":4,
+                // 3 x8
+                "Emancipation Angel":4,
+                "Silverblade Paladin":4,
+                // 4 x7
+                "Angel of Jubilation":4,
+                "Restoration Angel":3,
+                // 5 x7
+                "Herald of War":2,
+                "Sigarda, Host of Herons":3,
+                "Wolfir Silverheart":2,
+                // 8 x1
+                "Avacyn, Angel of Hope":1
             };
-            var hand = new Hand();
-            window.currentLibrary = new Library(testDeck, hand, container);
-            window.currentHand = hand;
+
+            var drainCheese = {
+                "Black Lotus":30,
+                "Contract from below":7,
+                "Drain Life":3
+            };
+
+            var fourtyCardBetaBurn = {
+                "Black Lotus":5,
+                "Mox Jet":5,
+                "Mox Ruby":5,
+                "Mox Sapphire":5,
+                "Mox Emerald":4,
+                "Mox Pearl":4,
+                "Contract from below":5,
+                "Timetwister":5,
+                "Disintegrate":2
+            };
+
+            var goblins_legacy = {
+                "Goblin Warchief":4,
+                "Goblin Ringleader":4,
+                "Goblin Piledriver":4,
+                "Goblin Matron":4,
+                "Goblin Lackey":4,
+                "Gempalm Incinerator":3,
+                "Warren Instigator":2,
+                "Siege-Gang Commander":3,
+                "Goblin Chieftain":4,
+                "Aether Vial":4,
+                "Warren Weirding":2,
+                "Bloodstained Mire":1,
+                "Badlands":2,
+                "Rishadan Port":2,
+                "Taiga":2,
+                "Arid Mesa":3,
+                "Scalding Tarn":3,
+                "Wasteland":4,
+                "Mountain":5
+            };
+
+            var _8_land_elf_stompy = {
+                "Forest":7,
+                "Pendelhaven":1,
+                "Land Grant":4,
+                "Llanowar Elves":4,
+                "Elvish Spirit Guide":4,
+                "Quirion Ranger":4,
+                "Heritage Druid":4,
+                "Nettle Sentinel":4,
+                "Priest of Titania":4,
+                "Talara's Battalion":4,
+                "Wren's Run Vanquisher":4,
+                "Imperious Perfect":4,
+                "Elvish Archdruid":4,
+                "Sylvan Messenger":4,
+                "Tribal Forcemage":2,
+                "Elvish Champion":2
+            };
+
+            var betaBurnDeck = {
+                "Badlands":2,
+                "Underground Sea":2,
+                "Volcanic Island":2,
+                "Black Lotus":4,
+                "Mox Jet":4,
+                "Mox Ruby":4,
+                "Mox Sapphire":4,
+                "Mox Emerald":4,
+                "Mox Pearl":4,
+                "Dark Ritual":4,
+                "Disintegrate":4,
+                "Mana Vault":4,
+                "Lightning Bolt":4,
+                "Ancestral Recall":4,
+                "Contract From Below":4,
+                "Timetwister":4,
+                "Time Walk":4
+            };
+
+            var merfolk = {
+                "Aether Vial":4,
+                "Lord of Atlantis":4,
+                "Coralhelm Commander":4,
+                "Merrow Reejerey":4,
+                "Merfolk Sovereign":4,
+                "Cursecatcher":4,
+                "Silvergill Adept":4,
+                "Kira, Great Glass-Spinner":2,
+                "Sower of Temptation":1,
+                "Force of Will":4,
+                "Daze":4,
+                "Spell Pierce":1,
+
+                "Island":13,
+                "Wasteland":4,
+                "Mutavault":4,
+                "Mishra's Factory":1
+            };
+
+            window.currentHand = new Hand();
+            window.cardViewer = new LargeCardViewer(container);
+            window.currentLibrary = new Library(merfolk, currentHand, cardViewer, container);
         };
     </script>
 </head>

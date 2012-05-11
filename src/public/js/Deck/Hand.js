@@ -1,6 +1,6 @@
 (function () {
-    var HAND_POSITION_X = 50;
-    var HAND_POSITION_Y = 600;
+    var HAND_POSITION_X = 10;
+    var HAND_POSITION_Y = 700;
     var CARD_OFFSET = 100;
 
     var Hand = window.Hand = function () {

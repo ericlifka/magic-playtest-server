@@ -1,13 +1,25 @@
 (function () {
-    var CARD_SIZE = 125;
+    var CARD_SIZE = 200;
     var CARD_ORIENTATION_TAPPED = "tapped";
     var CARD_ORIENTATION_UNTAPPED = "untapped";
     var CARD_STATE_MOVING = "moving";
     var CARD_STATE_NOT_MOVING = "notmoving";
 
-    var Card = window.Card = function (cardName, playerHand, parentContainer) {
+    var buildImageUrl = function (identifier) {
+        var baseUrl = "http://gatherer.wizards.com/Handlers/Image.ashx?type=card&";
+        if (isNaN(parseInt(identifier, 10))) {
+            baseUrl += "name=" + identifier;
+        }
+        else {
+            baseUrl += "multiverseid=" + identifier;
+        }
+        return baseUrl;
+    };
+
+    var Card = window.Card = function (cardName, playerHand, cardViewer, parentContainer) {
         this.parentContainer = parentContainer || document.body;
         this.playerHand = playerHand;
+        this.cardViewer = cardViewer;
         this.cardDiv = document.createElement('div');
         this.cardImage = document.createElement('img');
 
@@ -20,7 +32,7 @@
             yOffset: 0
         };
 
-        this.cardImage.src = "http://gatherer.wizards.com/Handlers/Image.ashx?type=card&name=" + cardName;
+        this.cardImage.src = buildImageUrl(cardName);
         this.cardImage.height = CARD_SIZE;
         this.cardDiv.style.position = "absolute";
         this.updateCardPosition(this.currentPosition);
@@ -36,14 +48,13 @@
             return false;
         };
 
-        this.cardDiv.onmouseup = function (event) {
-            card.handleOnMouseUpEvent(event);
-            return false;
-        };
-
         this.cardDiv.ondblclick = function (event) {
             card.handleDoubleClickEvent(event);
             return false;
+        };
+
+        this.cardDiv.onmouseover = function (event) {
+            card.cardViewer.showCard(card.cardImage.src);
         };
     };
 
@@ -53,12 +64,18 @@
         this.captureMouseOffsetFromEvent(mouseEvent);
         this.parentContainer.onmousemove = function (event) {
             card.handleMouseMoveEvent(event);
+            return false;
+        };
+        this.parentContainer.onmouseup = function (event) {
+            card.handleOnMouseUpEvent(event);
+            return false;
         };
     };
 
     Card.prototype.handleOnMouseUpEvent = function (mouseEvent) {
         this.currentMovementState = CARD_STATE_NOT_MOVING;
         this.parentContainer.onmousemove = null;
+        this.parentContainer.onmouseup = null;
         this.currentPosition.xOffset = 0;
         this.currentPosition.yOffset = 0;
         this.clearHandPosition();

@@ -22,6 +22,7 @@
         this.cardViewer = cardViewer;
         this.cardDiv = document.createElement('div');
         this.cardImage = document.createElement('img');
+        this.cardName = cardName;
 
         this.currentTapState = CARD_ORIENTATION_UNTAPPED;
         this.currentMovementState = CARD_STATE_NOT_MOVING;

@@ -146,9 +146,30 @@
                 "Mishra's Factory":1
             };
 
+            var ramp_angels = {
+                "Birds of Paradise":4,
+                "Avacyn’s Pilgrim":4,
+                "Llanowar elves":4,
+                "Rampant Growth":4,
+                "Scorned Villager":4,
+                "Somberwald Sage": 4,
+                "Chancellor of the Tangle": 4,
+
+                "Green Sun's Zenith": 4,
+
+                "Sigarda, Host of Herons":2,
+                "Entreat the Angels":4,
+
+                "Cavern of Souls":4,
+                "Razorverge Thicket":4,
+                "Sunpetal Grove":3,
+                "Forest":9,
+                "Plains":2
+            };
+
             window.currentHand = new Hand();
             window.cardViewer = new LargeCardViewer(container);
-            window.currentLibrary = new Library(merfolk, currentHand, cardViewer, container);
+            window.currentLibrary = new Library(ramp_angels, currentHand, cardViewer, container);
         };
     </script>
 </head>
